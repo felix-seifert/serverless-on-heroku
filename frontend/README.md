@@ -8,9 +8,29 @@ This directory contains the source code for the frontend application. The deploy
 -   `styles.css` - Simple stylings for making things a little bit more pretty.
 -   `heroku.js` - The code for communication and interpreting the result from Heroku, the heart of the application.
 
+To import the CSS styles and JavaScript to the HTML file, this needs to be in the head section in `index.html`:
+
+```html
+...
+<head>
+    ...
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="text/javascript" src="./heroku.js"></script>
+    ...
+</head>
+...
+```
+
 ## Communicating with the Heroku API
 
 In the `index.html` file we got 3 different input fields, a field for the Heroku project ID we want to communicate with, a field for the Heroku API key (should be generated from an account with write privilege to the specified Heroku project), and a name, which will be the input to the application.
+
+```html
+<input type="text" placeholder="Your Heroku app" id="herokuApp" />
+<input type="text" placeholder="Your Heroku API key" id="herokuApiKey" />
+<input type="text" placeholder="Your name" id="name" />
+<button onclick="startDyno()">Start dyno</button>
+```
 
 When pressing the button displayed, the function `startDyno`, defined in `heroku.js`, will start to execute. This function will read the values from the input field by using `document.getElementById(elementId: string).value`. Using these values, we create a POST request to the url `https://api.heroku.com/apps/<HEORKU_APP_ID>/dynos` with the data:
 
@@ -121,6 +141,10 @@ const readStream = (reader) => {
 
 To set the log output of our dyno execution, we can simply get the DOM element by using `document.getElementId` and update the text content.
 
+```html
+<code id="output"></code>
+```
+
 ```js
 /**
  * Set the logging result to display to the user
@@ -133,6 +157,10 @@ const setLog = (message = "") => {
 ```
 
 In a similar manner we update the error output if something goes wrong in the process.
+
+```html
+<code id="error"></code>
+```
 
 ```js
 /**
