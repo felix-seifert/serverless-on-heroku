@@ -13,8 +13,9 @@ to process Functions-as-a-Service with arguments provided via environment variab
 
 To complete this tutorial, you will need:
 * **add time estimate**
-* A free account on [heroku.com](http://heroku.com/)
-* A free account on [github.com](https://github.com/)
+* Free account on [github.com](https://github.com/)
+* Free account on [heroku.com](http://heroku.com/)
+* Working installation of [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 * Some basic understanding of programming languages
 
 ## Architecture
@@ -24,15 +25,15 @@ basically has the required functionality for a Function-as-a-Service: It starts 
 the costs are therefore only billed when run. To show that the caller of the function does not have to be in the same 
 network or network region, we host our static website on GitHub. This static website creates a post request via Heroku's 
 [Platform API](https://devcenter.heroku.com/articles/platform-api-reference). The post request results in starting the 
-One-off Dyno which reads the environment variables provided by the post request, which can be considered as the 
-function's arguments.
+One-off Dyno on which a simple Python script reads the environment variables provided by the post request, which can be 
+considered as the function's arguments, and uses them to compute a return value.
 
 The static website will ask you to key in your Heroku API key and your name. After providing key and name, you can 
 click on the button to send the request to the One-off Dyno. The One-off Dyno will read your name from the environment 
 variables and return a result based on your name.
 
-Executing the tutorial does not result in any additional cost as neither a GitHub nor a Heroku account cost any fee. 
-Heroku offers some free computing resources which should be sufficient for this tutorial. However, if you request a 
+Executing the tutorial does not result in any additional cost as neither a GitHub account nor a Heroku account cost any 
+fee. Heroku offers some free computing resources which should be sufficient for this tutorial. However, if you request a 
 very high amount of computing resources, be aware that Heroku might charge you some fees.
 
 ## Copyright and License
