@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+input,
+button {
+    margin-bottom: 1rem;
+}
+
+#error {
+    color: red;
+}
+
+#output {
+    white-space: pre;
+}
