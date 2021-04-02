@@ -1,0 +1,1 @@
+serverless: python serverless-task.py
