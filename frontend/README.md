@@ -1,6 +1,6 @@
 # Frontend Application
 
-This directory contains the source code for the frontend application. The deployed site can be found [here](https://felix-seifert.github.io/serverless-on-heroku/).
+This directory contains the source code for the frontend application. The deployed site can be found [here](https://felix-seifert.github.io/serverless-on-heroku/frontend/).
 
 ## Files
 
