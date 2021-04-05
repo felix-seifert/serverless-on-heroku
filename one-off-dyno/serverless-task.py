@@ -1,4 +1,7 @@
-import os
+from os import environ
 
-name = os.environ['NAME']
-print("Hello " + name + "!")
+if 'NAME' in environ and len(environ['NAME'].strip()) > 0:
+    name = environ['NAME'].strip()
+    print('Hello ' + name + '!')
+else:
+    print('Hello World!')
