@@ -1,8 +1,19 @@
 body {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    margin-left: auto;
+
+    max-width: 960px;
+
+    padding-right: 10px;
+    padding-left: 10px;
+}
+form {
     display: flex;
     flex-direction: column;
 }
-
 input,
 button {
     margin-bottom: 1rem;
@@ -14,4 +25,21 @@ button {
 
 #output {
     white-space: pre;
+}
+
+#addEnvironmentVariables {
+    align-self: flex-end;
+}
+
+.environmentVariable {
+    display: flex;
+}
+
+.environmentVariable :not(:first-child):not(:last-child) {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+#loader {
+    align-self: center;
 }
