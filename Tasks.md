@@ -1,6 +1,8 @@
 # Tasks
 
 * Create static website on GitHub with input fields for key and name
-* Create One-off Dyno with simple Python script which adds a "Hello " in front of the name
+    * Add field for dyno name in Procfile
+    * Show that request is in progress
 * Describe procedure that user can do this one his/her own
+    * Describe on how to retrieve logs
 * Clean-up repo
