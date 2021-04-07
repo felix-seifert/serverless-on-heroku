@@ -11,13 +11,15 @@
         <title>Serverless on Heroku - Frontend</title>
     </head>
     <body>
-        <input type="text" placeholder="Your Heroku app (project)" id="herokuApp" />
+        <input type="text" placeholder="Heroku app name (project)" id="herokuApp" />
         <input type="text" placeholder="Command to run (dyno)" id="command" />
-        <input type="text" placeholder="Your Heroku API key" id="herokuApiKey" />
+        <input type="text" placeholder="Heroku API key" id="herokuApiKey" />
+        
         <p>Environment variables</p>
         <div id="environmentVariables"></div>
         <button id="addEnvironmentVariables" onclick="addEnvironmentVariables()">Add environment variables</button>
         <button id="startButton" onclick="startDyno()">Start dyno</button>
+        
         <code id="error"></code>
         <div id="loader"></div>
         <code id="output"></code>
