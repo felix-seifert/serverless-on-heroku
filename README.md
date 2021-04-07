@@ -209,7 +209,7 @@ $ curl -X POST https://api.heroku.com/apps/$APP_NAME/dynos \
 
 _Response_
 
-```json
+```js
 {
     ...
     "name": "run.8361",
@@ -243,7 +243,7 @@ $ curl -n -X POST https://api.heroku.com/apps/$APP_NAME/log-sessions \
 
 _Response_
 
-```json
+```js
 {
   ...
   "logplex_url": "<LOGPLEX_URL>",
