@@ -180,7 +180,7 @@ The JSON response from the request will include the key `name`, which has the va
 }
 ```
 
-`<DYNO_NAME>` is here the dyno name returned from initializing the one-off dyno. In this request, we also include the `tail` key and set the value to `true`. This results in streaming the output of the dyno as it is executing.
+`<DYNO_NAME>` is here the dyno name returned from initializing the one-off dyno. In this request, we also include the `tail` key and set the value to `true` and the source set to `"app"`, which results in streaming the output of the dyno only from the command itself.
 
 ```js
 /**
@@ -192,6 +192,7 @@ The JSON response from the request will include the key `name`, which has the va
 const getLogStream = (dyno, herokuApp, apiToken) => {
     return makeHerokuRequest("/log-sessions", herokuApp, apiToken, "POST", {
         dyno,
+        source: "app",
         tail: true,
     }).then(async (res) => {
         const content = await res.json();

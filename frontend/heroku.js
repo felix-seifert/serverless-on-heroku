@@ -70,6 +70,7 @@ const readStream = (reader) => {
 const getLogStream = (dyno, herokuApp, apiToken) => {
     return makeHerokuRequest("/log-sessions", herokuApp, apiToken, "POST", {
         dyno,
+        source: "app",
         tail: true,
     }).then(async (res) => {
         const content = await res.json();
