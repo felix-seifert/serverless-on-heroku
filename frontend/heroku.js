@@ -14,13 +14,7 @@ const createUrl = (endpoint, herokuApp) => `${baseURL}${herokuApp}${endpoint}`;
  * @param {any} body  JSON data to be sent
  * @returns {Promise<Response>}  Promise with response
  */
-const makeHerokuRequest = (
-    endpoint,
-    herokuApp,
-    apiToken,
-    method = "GET",
-    body = undefined
-) => {
+const makeHerokuRequest = (endpoint, herokuApp, apiToken, method = "GET", body = undefined) => {
     return fetch(createUrl(endpoint, herokuApp), {
         method,
         headers: {
@@ -74,8 +68,9 @@ const readStream = (reader) => {
  * @param {string} apiToken  API token used to authenticate
  */
 const getLogStream = (dyno, herokuApp, apiToken) => {
-    makeHerokuRequest("/log-sessions", herokuApp, apiToken, "POST", {
+    return makeHerokuRequest("/log-sessions", herokuApp, apiToken, "POST", {
         dyno,
+        source: "app",
         tail: true,
     }).then(async (res) => {
         const content = await res.json();
@@ -84,9 +79,26 @@ const getLogStream = (dyno, herokuApp, apiToken) => {
                 .then((response) => response.body.getReader())
                 .then(readStream);
         } else {
-            setError(content.message);
+            throw new Error(content.message);
         }
     });
+};
+
+/**
+ * Creates a simple loader element, animated by CSS
+ */
+const createLoader = () => {
+    const loaderNode = document.getElementById("loader");
+    const ldsRing = document.createElement("div");
+    ldsRing.setAttribute("id", "lds-ring");
+    for (let i = 0; i < 4; i++) {
+        ldsRing.appendChild(document.createElement("div"));
+    }
+    loaderNode.appendChild(ldsRing);
+};
+
+const removeLoader = () => {
+    document.getElementById("lds-ring").remove();
 };
 
 /**
@@ -96,21 +108,50 @@ const startDyno = () => {
     setError();
     setLog();
 
-    const herokuApp = document.getElementById("herokuApp").value;
-    const herokuApiKey = document.getElementById("herokuApiKey").value;
-    const name = document.getElementById("name").value;
+    document.getElementById("startButton").setAttribute("disabled", true);
+    createLoader();
+    const herokuAppNode = document.getElementById("herokuApp");
+    const herokuApiKeyNode = document.getElementById("herokuApiKey");
+    const commandNode = document.getElementById("command");
 
-    makeHerokuRequest("/dynos", herokuApp, herokuApiKey, "POST", {
-        command: "serverless",
-        env: {
-            NAME: name,
-        },
-    }).then(async (res) => {
-        const content = await res.json();
-        if (res.ok) {
-            getLogStream(content.name, herokuApp, herokuApiKey);
-        } else {
-            setError(content.message);
+    const environmentVariablesNode = Array.from(document.getElementsByClassName("environmentVariable"));
+    try {
+        if (!herokuAppNode.value || !herokuApiKeyNode.value || !commandNode.value) {
+            throw new Error("Please fill out the form");
         }
-    });
+
+        const environmentVariables = environmentVariablesNode.reduce((prev, curr) => {
+            const keyNode = curr.getElementsByClassName("environmentVariableKey").item(0);
+            const valueNode = curr.getElementsByClassName("environmentVariableValue").item(0);
+            if (!keyNode.value && !valueNode.value) {
+                throw new Error("Please fill out environment variables values");
+            }
+            return { ...prev, [keyNode.value]: valueNode.value };
+        }, {});
+
+        const herokuApp = herokuAppNode.value;
+        const herokuApiKey = herokuApiKeyNode.value;
+        const command = commandNode.value;
+
+        makeHerokuRequest("/dynos", herokuApp, herokuApiKey, "POST", {
+            command,
+            env: environmentVariables,
+        })
+            .then(async (res) => {
+                const content = await res.json();
+                if (res.ok) {
+                    return getLogStream(content.name, herokuApp, herokuApiKey);
+                } else {
+                    throw new Error(content.message);
+                }
+            })
+            .finally(() => {
+                document.getElementById("startButton").removeAttribute("disabled");
+                removeLoader();
+            });
+    } catch (error) {
+        setError(error.message);
+        document.getElementById("startButton").removeAttribute("disabled");
+        removeLoader();
+    }
 };
