@@ -14,7 +14,7 @@ This document explains the implementation and usage of the frontend for one-off 
 
 ## Demo
 
-![Demo video](./frontend-demo.gif)
+![Frontend Demo](https://user-images.githubusercontent.com/41639203/113831696-2d857700-9788-11eb-8b75-3218846746c5.gif)
 
 ## Usage
 
