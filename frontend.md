@@ -6,10 +6,10 @@ This document explains the implementation and usage of the frontend for one-off 
 
 1. [Demo](#demo)
 2. [Usage](#usage)
-3. [How it works](#how-it-works)
+3. [How It Works](#how-it-works)
     - [Files](#files)
-    - [Communicating With Heroku API](#communicating-with-heroku-api)
-    - [Setting Log and Error](#setting-log-and-error)
+    - [Communicate With Heroku API](#communicate-with-heroku-api)
+    - [Set Log and Error](#set-log-and-error)
 4. [Security Considerations](#security-considerations)
 
 ## Demo
@@ -20,7 +20,7 @@ This document explains the implementation and usage of the frontend for one-off 
 
 This web application can be used by anyone to invocate commands specified in a Heroku `Procfile` to be run in a one-off dyno, essentially running in a serverless fashion. To use the application, you will need to enter the Heroku App Name, the task to run and an API token with write access to the project. We do not store your information in any way or form. To add environment variables to the task, add them by clicking the button "Add environment variables" and insert the desired key and value. To start the task, click "Start dyno".
 
-## How it Works
+## How It Works
 
 In this section we will describe how this application is built and all the parts necessary to understand it.
 
@@ -47,7 +47,7 @@ The import of the CSS and the JavaScript into the HTML file has to happen in the
 ...
 ```
 
-### Communicating With Heroku API
+### Communicate With Heroku API
 
 In the `index.html` file, we have three different input fields: one for the Heroku App Name of the project we want to communicate with, the Heroku API key and the command we want to run in a one-off-dyno. The Heroku API key should be generated from an account with write privilege for the specified Heroku project.
 
@@ -102,7 +102,7 @@ const addEnvironmentVariables = () => {
 
 When pressing the displayed start button, the function `startDyno`, defined in `heroku.js`, will be triggered. This function will read the values from the input fields by using `document.getElementById(elementId: string).value`. With these values, we create a `POST` request to the URL `https://api.heroku.com/apps/<HEORKU_APP_NAME>/dynos` containing the following data:
 
-```json
+```js
 {
     "command": "<COMMAND>",
     "env": {
@@ -173,7 +173,7 @@ const startDyno = () => {
 
 The JSON response from the request will include the key `name`, which has the value of the name of the created dyno. To get the log stream for the created dyno, we make a `POST` request to the URL `https://api.heroku.com/apps/<HEROKU_APP_NAME>/log-sessions` containing the following data:
 
-```json
+```js
 {
     "dyno": "<DYNO_NAME>",
     "tail": true
@@ -236,7 +236,7 @@ const readStream = (reader) => {
 };
 ```
 
-### Setting Log and Error
+### Set Log and Error
 
 To set the log output of our dyno execution, we can get the DOM element by using `document.getElementId` and update the text content.
 
