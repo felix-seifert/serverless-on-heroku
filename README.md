@@ -20,7 +20,7 @@ to process Functions-as-a-Service with arguments provided via environment variab
 4. [Trigger HTTP Request](#trigger-http-requests)
 5. [Retrieve Log Session](#retrieve-log-session)
 6. [Use With Frontend](#use-with-frontend)
-7. [Copywright and License](#copyright-and-license)
+7. [Copyright and License](#copyright-and-license)
 
 ## Prerequisites
 
