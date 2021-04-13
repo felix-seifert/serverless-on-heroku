@@ -286,7 +286,7 @@ You can also see a description on [how we managed to implement the calling site 
 
 ## Thank you
 
-<a href="https://github.com/felix-seifert/serverless-on-heroku/blob/easter-egg/easter-egg.md" style="color: white; text-decoration: none">Thank you for reading this tutorial!</a> If you have any questions or thoughts, please leave an issue and we'll try to respond to it as soon as possible.
+Thank you for reading this tutorial [⭐](https://github.com/felix-seifert/serverless-on-heroku/blob/easter-egg/easter-egg.md)! If you have any questions or thoughts, please leave an issue and we'll try to respond to it as soon as possible.
 
 ## Copyright and License
 Copyright © 2021, [Axel Pettersson](https://github.com/ackuq) and [Felix Seifert](https://www.felix-seifert.com/)
