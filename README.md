@@ -284,6 +284,12 @@ the Python function above. It will return the logs of the app in which you can s
 
 You can also see a description on [how we managed to implement the calling site of the one-off dyno](https://felix-seifert.github.io/serverless-on-heroku/frontend).
 
+## Thank you
+
+Thank you for reading this tutorial [⭐](https://github.com/felix-seifert/serverless-on-heroku/blob/easter-egg/easter-egg.md)! 
+
+If you have valuable feedback you want to share, create a comment on [this issue](https://github.com/felix-seifert/serverless-on-heroku/issues/4) to inform us. If you have any questions or other thoughts, don't be afraid to create a new issue.
+
 ## Copyright and License
 Copyright © 2021, [Axel Pettersson](https://github.com/ackuq) and [Felix Seifert](https://www.felix-seifert.com/)
 
