@@ -1,13 +1,15 @@
 # Serverless on Heroku [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 [Heroku](https://heroku.com/) is a webservice where users can run simple web applications for free for a limited number 
-of hours per month. The obvious approach would be to run serverless applications (Functions-as-a-Service) which are 
-billed per second and run only when end users request them. However, Heroku does not offer the option to deploy 
-serverless applications off-the-shelf.
+of hours per month. The obvious approach would be to run [Functions as a Service](https://www.sumologic.com/glossary/function-as-a-service/) 
+to match resource supply from the server side and resource requirement from the end users' side. Such an implementation 
+of a serverless application "sleeps" as long as there is no need for it. Once a user requests the function's results, 
+the function is started and consumes only resources during its execution. However, Heroku does not offer the option to 
+deploy serverless applications off-the-shelf to bill the customer per second.
 
 In the following tutorial, we describe a way on how to use [Heroku's one-off dynos](https://devcenter.heroku.com/articles/one-off-dynos), 
 which are usually [not addressable via HTTP requests](https://devcenter.heroku.com/articles/one-off-dynos#formation-dynos-vs-one-off-dynos), 
-to process Functions-as-a-Service with arguments provided via environment variables.
+to process Functions as a Service with arguments provided via environment variables.
 
 ## Table of Contents
 
@@ -33,10 +35,10 @@ To complete this tutorial, you will need:
 
 ## Architecture
 
-We want to create serverless function on Heroku which only starts and executes some code when it is requested. 
-Therefore, it should not consume any resources when it is not used. Applications on Heroku are managed withing app 
+We want to create a serverless function on Heroku which only starts and executes some code when it is requested. 
+Therefore, it should not consume any resources when it is not used. Applications on Heroku are managed within app 
 containers which are called dynos. One dyno configuration is the one-off dyno which basically has the required 
-functionality for a Function-as-a-Service. However, one-off dynos are not addressable via HTTP requests and we want to 
+functionality for a Function as a Service. However, one-off dynos are not addressable via HTTP requests and we want to 
 show how to circumvent this issue.
 
 We want to create a post request via Heroku's [Platform API](https://devcenter.heroku.com/articles/platform-api-reference) 
@@ -136,7 +138,7 @@ Besides an app with a random name on the Heroku platform, this command results i
 repository, i.e. a remote version of the repository on Heroku's servers.
 
 ```shell
-$ heroku create example
+$ heroku create
 ```
 
 When having a Git repository with the relevant programme code and a linked app on the Heroku platform, you just have to 
@@ -162,8 +164,11 @@ variable.
 
 ## Trigger HTTP Requests
 
+Subsequently, we will explain how the request to trigger an HTTP request to the one-off dyno is composed. If you already 
+feel confident enough with the Heroku CLI, you can [skip this section and proceed with the final request](#final-request-and-response).
+
 The Heroku Platform API offers an [option to create dynos with a POST request](https://devcenter.heroku.com/articles/platform-api-reference#dyno-create), 
-which can be used to start a one-off dyno. We just have to inser the name of the app for `$APP_NAME`.
+which can be used to start a one-off dyno. We just have to insert the name of the app for `$APP_NAME`.
 
 ```shell
 $ curl -X POST https://api.heroku.com/apps/$APP_NAME/dynos
@@ -203,6 +208,8 @@ $ curl -X POST https://api.heroku.com/apps/$APP_NAME/dynos \
 
 Finally, we can also set the environment variables in the body of the request and can therefore achieve arguments of 
 the function.
+
+### Final Request and Response
 
 _Request_
 
@@ -278,7 +285,7 @@ $ curl <LOGPLEX_URL>
 
 As the caller does not have to be in the same network or network region, we implemented an 
 [example form on GitHub pages](https://felix-seifert.github.io/serverless-on-heroku/frontend/) which you can use to try 
-out your one-off dyno and see how Heroku can be used to implement serverless Functions-as-a-Service. You just have to 
+out your one-off dyno and see how Heroku can be used to implement serverless Functions as a Service. You just have to 
 provide the name of your Heroku app, your Heroku API key, the name of your dyno and the name which should be used in 
 the Python function above. It will return the logs of the app in which you can see the return value.
 
