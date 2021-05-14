@@ -29,7 +29,7 @@ to process Functions as a Service with arguments provided via environment variab
 To complete this tutorial, you will need:
 * Around 15 minutes
 * Free account on [heroku.com](http://heroku.com/) and access to it through web browser
-* Working installation of [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) where you are already logged in
+* Working installation of Heroku CLI where you are already logged in. For information about how to get started with the Heroku CLI and how to authenticate with it, [click here](https://devcenter.heroku.com/articles/heroku-cli).
 * Shell with `curl`
 * Some basic understanding of programming languages
 
@@ -42,7 +42,7 @@ functionality for a Function as a Service. However, one-off dynos are not addres
 show how to circumvent this issue.
 
 We want to create a post request via Heroku's [Platform API](https://devcenter.heroku.com/articles/platform-api-reference) 
-to start a one-off dyno on which a [simple Python script](one-off-dyno/serverless-task.py) reads the environment 
+to start a one-off dyno on which a [simple Python script](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/serverless-task.py) reads the environment 
 variables provided by the post request. These environment variables can be considered as the function's arguments. If 
 the functions return value is required, it can be read from the function logs.
 
@@ -60,14 +60,14 @@ The heart of our serverless application is a one-off dyno which only starts and 
 
 ### Required Files
 
-The folder [one-off-dyno](one-off-dyno) includes a quite minimal setup required for a one-off-dyno.
+The folder [one-off-dyno](https://github.com/felix-seifert/serverless-on-heroku/tree/main/one-off-dyno) includes a quite minimal setup required for a one-off-dyno.
 
-* The [`Procfile`](one-off-dyno/Procfile) file specifies to reach the dyno via the name `serverless` and what to execute 
+* The [`Procfile`](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/Procfile) file specifies to reach the dyno via the name `serverless` and what to execute 
 on the command line when it is started. We decided to run a Python script. You can also implement some other code which 
   finds to an end (no specific framework needed).
-* We chose to use a [Python script](one-off-dyno/serverless-task.py) for our processing logic which can be modified to 
+* We chose to use a [Python script](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/serverless-task.py) for our processing logic which can be modified to 
   suit your needs.
-* As we chose to execute a Python script, we need have a [`requirements.txt`](one-off-dyno/requirements.txt). If there 
+* As we chose to execute a Python script, we need have a [`requirements.txt`](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/requirements.txt). If there 
   are no dependencies which the system has to install before executing the script, this file can also be empty.
   
 The following paragraphs describe on how to implement these files and run them as a one-off dyno on Heroku.
@@ -103,7 +103,7 @@ else:
 print('Hello ' + name + '!')
 ```
 
-We add the Python implementation with the required `import` statement (see [example](one-off-dyno/serverless-task.py)
+We add the Python implementation with the required `import` statement (see [example](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/serverless-task.py)
 for reference) to the new folder `example-app` for the Heroku app.
 
 ### Upload Code to Heroku
