@@ -148,7 +148,7 @@ $ heroku create
 For ease of access, we add the newly created app's name to an environment variable called `$APP_NAME`.
 
 ```shell
-$ APP_NAME=<YOUR APP NAME> # Replace <YOUR APP NAME> with the name of your newly created app
+$ APP_NAME=<YOUR_APP_NAME> # Replace <YOUR_APP_NAME> with name of your newly created app
 ```
 
 When having a Git repository with the relevant programme code and a linked app on the Heroku platform, you just have to 
@@ -156,7 +156,7 @@ push the code to Heroku.
 
 
 ```shell
-$ git push heroku main # Or master, depending on your git version
+$ git push heroku main # Depending on your git version, main should be replaced with master
 ```
 
 Read more about pushing code to Heroku in [Heroku's Dev Center](https://devcenter.heroku.com/articles/git).
@@ -243,7 +243,7 @@ _Response_
 ```js
 {
     ...
-    "name": "<DYNO NAME>",
+    "name": "<DYNO_NAME>",
     ...
 }
 ```
@@ -256,7 +256,7 @@ To make the following commands easier to execute, export the returned dyno name 
 environment variable called `$DYNO_NAME`.
 
 ```shell
-$ DYNO_NAME=<DYNO_NAME> # Replace <DYNO_NAME> with the name of the newly created dyno
+$ DYNO_NAME=<DYNO_NAME> # Replace <DYNO_NAME> with name of newly created dyno
 ```
 
 ## Retrieve Log Session
@@ -301,12 +301,12 @@ This URL can be opened in your browser or fetch it with `curl`. It does not requ
 _Request_
 
 ```shell
-$ curl <LOGPLEX_URL> # Replace <LOGPLEX_URL> with the value under the key "logplex_url" in the previous JSON response
+$ curl <LOGPLEX_URL> # Replace <LOGPLEX_URL> with value under key "logplex_url" in previous JSON response
 ```
 
 _Response_
 ```shell
-app[<DYNO NAME>]: Hello Daniela!
+app[<DYNO_NAME>]: Hello Daniela!
 ```
 
 ## Use With Frontend
