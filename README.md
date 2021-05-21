@@ -29,7 +29,8 @@ to process Functions as a Service with arguments provided via environment variab
 To complete this tutorial, you will need:
 * Around 15 minutes
 * Free account on [heroku.com](http://heroku.com/) and access to it through web browser
-* Working installation of Heroku CLI where you are already logged in. For information about how to get started with the Heroku CLI and how to authenticate with it, [click here](https://devcenter.heroku.com/articles/heroku-cli).
+* Working installation of the Heroku command-line interface (CLI) where you are already logged in. For information about 
+  how to get started with the Heroku CLI and how to authenticate with it, [have a look at Herkou's Dev Center](https://devcenter.heroku.com/articles/heroku-cli).
 * Shell with `curl`
 * Some basic understanding of programming languages
 
@@ -42,9 +43,9 @@ functionality for a Function as a Service. However, one-off dynos are not addres
 show how to circumvent this issue.
 
 We want to create a post request via Heroku's [Platform API](https://devcenter.heroku.com/articles/platform-api-reference) 
-to start a one-off dyno on which a [simple Python script](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/serverless-task.py) reads the environment 
-variables provided by the post request. These environment variables can be considered as the function's arguments. If 
-the functions return value is required, it can be read from the function logs.
+to start a one-off dyno on which a [simple Python script](https://github.com/felix-seifert/serverless-on-heroku/blob/main/one-off-dyno/serverless-task.py) 
+reads the environment variables provided by the post request. These environment variables can be considered as the 
+function's arguments. If the functions return value is required, it can be read from the function logs.
 
 To show that the caller of the function does not have to be in the same network or network region, we host a [static 
 website on GitHub](frontend) which you can use to generate calls to your own one-off dyno. This static website creates 
@@ -111,6 +112,9 @@ for reference), under the name `serverless-task.py` to the new folder `example-a
 
 ### Upload Code to Heroku
 
+For the interaction between our local machine and the Heroku platform, we use the Herkou CLI. The CLI allows us to 
+perform most of the required interactions with the platform from the local command line.
+
 To create a working solution on Heroku, we have to create a `Procfile` in the folder `example-app` to tell Heroku what 
 to do when we try to start our one-off dyno.
 
@@ -176,10 +180,13 @@ variable.
 ## Trigger HTTP Requests
 
 Subsequently, we will explain how the request to trigger an HTTP request to the one-off dyno is composed. If you already 
-feel confident enough with the Heroku CLI, you can [skip this section and proceed with the final request](#final-request-and-response).
+feel confident enough with the Heroku Platform API, you can [skip this section and proceed with the final request](#final-request-and-response).
 
-The Heroku Platform API offers an [option to create dynos with a POST request](https://devcenter.heroku.com/articles/platform-api-reference#dyno-create), 
-which can be used to start a one-off dyno. We just have to insert the name of the app for `$APP_NAME`, which we exported as an environment variable already.
+The Heroku Platform API gives the option to trigger service like the ones of the Heroku CLI via typical HTTP REST calls. 
+It therefore frees authenticated entities from the need of an installed Heroku CLI and offers an 
+[option to create dynos with a POST request](https://devcenter.heroku.com/articles/platform-api-reference#dyno-create), 
+which can be used to start a one-off dyno. We just have to insert the name of the app for `$APP_NAME`, which we exported 
+as an environment variable already.
 
 ```shell
 $ curl -X POST https://api.heroku.com/apps/$APP_NAME/dynos
@@ -192,7 +199,7 @@ $ curl -X POST https://api.heroku.com/apps/$APP_NAME/dynos \
 -H "Accept: application/vnd.heroku+json; version=3"
 ```
 
-Additionaly, we have to authenticate the caller (ourselves). One easy way of authentication is through an API key which 
+Additionally, we have to authenticate the caller (ourselves). One easy way of authentication is through an API key which 
 we get from the Heroku CLI. We directly store it in the variable `$TOKEN` which we can then use as a Bearer token. 
 
 ```shell
@@ -248,12 +255,12 @@ _Response_
 }
 ```
 
-The logs from the execution is however not included in the response of the request. To get the resulting logs, we have to request a specific URL 
-for them. The prior response will include the name of dyno under the JSON key `name` in the response, 
-as well as additional information about the created dyno.
+The logs from the execution is however not included in the response of the request. To get the resulting logs, we have 
+to request a specific URL for them. The prior response will include the name of the dyno under the JSON key `name` in 
+the response, as well as additional information about the created dyno.
 
-To make the following commands easier to execute, export the returned dyno name under the key `name` in the response object to an 
-environment variable called `$DYNO_NAME`.
+To make the following commands easier to execute, export the returned dyno name under the key `name` in the response 
+object to an environment variable called `$DYNO_NAME`.
 
 ```shell
 $ DYNO_NAME=<DYNO_NAME> # Replace <DYNO_NAME> with name of newly created dyno
@@ -269,7 +276,8 @@ specified dyno and stream the result](https://devcenter.heroku.com/articles/plat
 We include the parameters `"source": "app"` and `"tail": true` to specify that we only want the logs generated by the 
 command itself and that the ongoing logs should be streamed.
 
-For passing our `$DYNO_NAME` environment variable as a JSON string, we need to surround it with single quotes surrounded by double quotes.
+For passing our `$DYNO_NAME` environment variable as a JSON string, we need to surround it with single quotes 
+surrounded by double quotes.
 
 _Request_
 
