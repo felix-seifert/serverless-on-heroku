@@ -296,18 +296,22 @@ _Response_
 ```
 
 The response from creating the log session will include a URL to the log session, specified under the key `logplex_url`. 
-This URL can be opened in your browser or fetch it with `curl`. It does not require additional authentication.
+You can fetch this URL with `curl` and it does not require additional authentication. To ensure a correct output from 
+calling the logplex URL on different devices, remember to put quotation marks (" ") around the URL.
 
 _Request_
 
 ```shell
-$ curl <LOGPLEX_URL> # Replace <LOGPLEX_URL> with value under key "logplex_url" in previous JSON response
+$ curl "<LOGPLEX_URL>" # Replace <LOGPLEX_URL> with value under key "logplex_url" in previous JSON response
 ```
 
 _Response_
 ```shell
 app[<DYNO_NAME>]: Hello Daniela!
 ```
+
+If you cannot get such a response, proceed to the [next section](#use-with-frontend) as it will work with our frontend 
+implementation.
 
 ## Use With Frontend
 
