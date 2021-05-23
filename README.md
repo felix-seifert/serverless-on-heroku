@@ -11,6 +11,11 @@ In the following tutorial, we describe a way on how to use [Heroku's one-off dyn
 which are usually [not addressable via HTTP requests](https://devcenter.heroku.com/articles/one-off-dynos#formation-dynos-vs-one-off-dynos), 
 to process Functions as a Service with arguments provided via environment variables.
 
+To avoid issues that your machine behaves differently than expected and free you from the hassle of the little system 
+setup, you can use our [Katacoda tutorial](https://www.katacoda.com/ackuq/scenarios/serverless-on-heroku) for which you 
+only need a webbrowser and a Heroku account. However, bear in mind that Katacoda is not the fastest and you have to pay 
+attention that your interactions with the platform are executed correctly.
+
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
